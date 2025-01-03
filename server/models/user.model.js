@@ -1,2 +1,56 @@
+const mongoose = require('mongoose');
 
-const {Schema, model} = require('mongoose');
+const userSchema = new mongoose.Schema({
+    user_id: { type: String, required: true, unique: true },
+    first_name: { type: String, required: true },
+    last_name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    phone_number: { type: String, required: false },
+    profile_picture_url: { type: String, required: false },
+    date_of_birth: { type: Date, required: false },
+    gender: { type: String, enum: ['Male', 'Female', 'Other'], required: false },
+    bio: { type: String, required: false },
+    address_line_1: { type: String, required: false },
+    address_line_2: { type: String, required: false },
+    city: { type: String, required: false },
+    state: { type: String, required: false },
+    zip_code: { type: String, required: false },
+    country: { type: String, required: false },
+    role: { type: String, enum: ['user', 'admin', 'moderator'], default: 'user' },
+    status: { type: String, enum: ['active', 'inactive', 'banned'], default: 'active' },
+    created_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now },
+    is_email_verified: { type: Boolean, default: false },
+    is_phone_verified: { type: Boolean, default: false },
+    theme: { type: String, enum: ['light', 'dark'], default: 'light' },
+    notifications: { type: Boolean, default: true },
+    last_login_at: { type: Date, required: false },
+    facebook_id: { type: String, required: false },
+    google_id: { type: String, required: false },
+    twitter_id: { type: String, required: false },
+    github_id: { type: String, required: false },
+    group_id: { type: String, required: false },
+    manager_id: { type: String, required: false },
+    department: { type: String, required: false },
+    designation: { type: String, required: false },
+    hire_date: { type: Date, required: false },
+    salary: { type: Number, required: false },
+    employment_type: { type: String, enum: ['Full-time', 'Part-time', 'Contract'], required: false },
+    skills: { type: [String], required: false }, // Array of strings for multiple skills
+    hobbies: { type: [String], required: false }, // Array of strings for multiple hobbies
+    emergency_contact_name: { type: String, required: false },
+    emergency_contact_phone: { type: String, required: false },
+    marital_status: { type: String, enum: ['Single', 'Married', 'Divorced', 'Widowed'], required: false },
+    nationality: { type: String, required: false },
+    timezone: { type: String, required: false },
+    language: { type: String, required: false },
+    login_attempts: { type: Number, default: 0 },
+    is_account_locked: { type: Boolean, default: false },
+    account_locked_at: { type: Date, required: false },
+    account_unlocked_at: { type: Date, required: false },
+});
+
+const User = mongoose.model('User', userSchema);
+module.exports = User;
