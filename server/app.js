@@ -1,5 +1,5 @@
 const express = require('express');
-
+const UserRoutes = require('./routes/user.routes');
 
 const app = express();
 
@@ -8,10 +8,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.raw());
 app.use(express.text());
+app.use('/uploads', express.static('uploads'));
 
 
-// api/task --> task.routes
-// api/user --> user.routes
+app.use('/user',UserRoutes);
+
+
 
 
 module.exports = app;
